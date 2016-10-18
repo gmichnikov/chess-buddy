@@ -18,10 +18,10 @@ class Piece
   end
 
   def valid_moves
-    moves.reject { |move| move_into_check?(move) }
+    moves.reject { |move| puts_self_in_check?(move) }
   end
 
-  def move_opponent_into_check?(to_pos)
+  def puts_opponent_in_check?(to_pos)
     opponent_color = (color == :white ? :black : :white)
     dup_board = board.dup
     dup_board.move!(pos, to_pos)
@@ -31,7 +31,7 @@ class Piece
 
   private
 
-  def move_into_check?(to_pos)
+  def puts_self_in_check?(to_pos)
     dup_board = board.dup
     dup_board.move!(pos, to_pos)
     dup_board.in_check?(color)
@@ -42,9 +42,20 @@ class Piece
   end
 
   def square_contains_opponent_piece?(pos)
-    self.board[pos].color != self.color
+    self.board.occupied?(pos) && self.board[pos].color != self.color
   end
 
+  def move_piece_once(pos, dx, dy)
+    [pos[0] + dx, pos[1] + dy]
+  end
+
+  def legal_destination?(pos)
+    Board.in_bounds?(pos) && !square_contains_own_piece?(pos)
+  end
+
+  def legal_capture?(pos)
+    Board.in_bounds?(pos) && square_contains_opponent_piece?(pos)
+  end
 
 
 end

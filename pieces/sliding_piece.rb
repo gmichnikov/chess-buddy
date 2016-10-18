@@ -2,8 +2,8 @@ require_relative '../piece'
 
 class SlidingPiece < Piece
 
-  HORIZ_VERT_MOVES = { left: [-1, 0], right: [1, 0], up: [0, -1], down: [0, 1] }
-  DIAGONAL_MOVES = { up_left: [-1, -1], up_right: [1, -1], down_left: [-1, 1], down_right: [1, 1] }
+  HORIZ_VERT_MOVES = { up: [-1, 0], down: [1, 0], left: [0, -1], right: [0, 1] }
+  DIAGONAL_MOVES = { up_left: [-1, -1], down_left: [1, -1], up_right: [-1, 1], down_right: [1, 1] }
 
   def moves
     possible_moves = []
@@ -21,11 +21,11 @@ class SlidingPiece < Piece
 
   def eval_moves(dx, dy)
     allowed_moves = []
-    next_pos = slide_once(pos, dx, dy)
+    next_pos = move_piece_once(pos, dx, dy)
     while Board.in_bounds?(next_pos)
       if self.board.empty?(next_pos)
         allowed_moves << next_pos
-        next_pos = slide_once(next_pos, dx, dy)
+        next_pos = move_piece_once(next_pos, dx, dy)
       elsif square_contains_own_piece?(next_pos)
         break
       elsif square_contains_opponent_piece?(next_pos)
@@ -34,10 +34,6 @@ class SlidingPiece < Piece
       end
     end
     allowed_moves
-  end
-
-  def slide_once(pos, dx, dy)
-    [pos[0] + dx, pos[1] + dy]
   end
 
 end

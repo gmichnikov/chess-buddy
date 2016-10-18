@@ -98,6 +98,11 @@ class Board
     self[pos].is_a?(NullPiece)
   end
 
+  def occupied?(pos)
+    !empty?(pos)
+  end
+
+
   private
 
   def make_starting_grid

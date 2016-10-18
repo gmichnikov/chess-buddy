@@ -13,10 +13,4 @@ class SteppingPiece < Piece
     possible_moves
   end
 
-  private
-
-  def legal_destination?(pos)
-    Board.in_bounds?(pos) && !square_contains_own_piece?(pos)
-  end
-
 end

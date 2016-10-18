@@ -13,7 +13,7 @@ class ComputerPlayer
     capture_moves = find_computer_captures(possible_moves, display)
 
     put_in_check_moves = possible_moves.select do |from_pos, to_pos|
-      display.board[from_pos].move_opponent_into_check?(to_pos)
+      display.board[from_pos].puts_opponent_in_check?(to_pos)
     end
 
     if put_in_check_moves.length > 0
