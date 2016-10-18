@@ -1,3 +1,5 @@
+require_relative 'sliding_piece'
+
 class Queen < SlidingPiece
   def move_dirs
     { horizontal: true, diagonal: true}

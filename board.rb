@@ -1,8 +1,8 @@
-# require_relative 'chess'
 require_relative 'display'
 require_relative 'piece'
-require_relative 'null_piece'
+# require_relative './pieces/null_piece'
 require 'byebug'
+Dir["./pieces/*"].each {|file| require_relative file }
 
 class Board
 
