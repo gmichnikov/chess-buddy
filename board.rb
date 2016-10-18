@@ -1,7 +1,7 @@
 require_relative 'display'
 require_relative 'piece'
 require 'byebug'
-Dir["./pieces/*"].each {|file| require_relative file }
+Dir["./pieces/*"].each { |file| require_relative file }
 
 class Board
 
@@ -20,12 +20,12 @@ class Board
   end
 
   def move(from_pos, to_pos, current_player_color)
-    made_move = false
+    made_move = nil
     begin
       current_piece = self[from_pos]
       check_for_move_errors(current_piece, current_player_color, to_pos)
       move!(from_pos, to_pos)
-      made_move = true
+      made_move = translate_pos_to_chess(from_pos, to_pos)
     rescue ChessError => e
       puts "#{e.message}.\nPlease try again."
       sleep(1)
@@ -151,6 +151,14 @@ class Board
         to_pos[0] == 7
       self[[7,to_pos[1]]] = Queen.new(:black, self, [7,to_pos[1]])
     end
+  end
+
+  def translate_pos_to_chess(from_pos, to_pos)
+    from_number = 8 - from_pos[0]
+    from_letter = ("a".ord + from_pos[1]).chr
+    to_number = 8 - to_pos[0]
+    to_letter = ("a".ord + to_pos[1]).chr
+    return "#{from_letter}#{from_number} to #{to_letter}#{to_number}"
   end
 
 end

@@ -19,6 +19,9 @@ def get_player(num)
 end
 
 def begin_game
+  system("clear")
+  puts "Welcome to Chess Buddy! Press enter to begin."
+  gets
   p1 = get_player(1)
   p2 = get_player(2)
   b = Board.new

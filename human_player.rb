@@ -36,26 +36,27 @@ class HumanPlayer
 
   def select_destination(display, from_pos, possible_destinations)
     system("clear")
-    print_whose_turn
+    print_whose_turn(display)
     display.render(possible_destinations)
     while display.cursor.get_input
       system("clear")
-      print_whose_turn
+      print_whose_turn(display)
       display.render(possible_destinations)
     end
     display.cursor.cursor_pos
   end
 
   def notify_players(display)
-    print_whose_turn
+    print_whose_turn(display)
     if display.board.in_check?(color)
       puts "You are in check!"
     end
     display.render
   end
 
-  def print_whose_turn
+  def print_whose_turn(display)
     puts "It is #{name}'s turn!"
+    puts "Most recent move: #{display.most_recent_move}" if display.most_recent_move
   end
 
 end

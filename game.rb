@@ -24,7 +24,10 @@ class Game
       system("clear")
       from_pos, to_pos = current_player.play_turn(display)
       made_move = board.move(from_pos, to_pos, current_player.color)
-      swap_turn if made_move
+      if made_move
+        self.display.most_recent_move = made_move
+        swap_turn
+      end
     end
     board.stalemate? ? handle_stalemate : handle_checkmate
 

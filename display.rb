@@ -11,11 +11,12 @@ class Display
   CURSOR_COLOR = :yellow
   POSSIBLE_MOVE_COLOR = :blue
 
-  attr_accessor :cursor, :board
+  attr_accessor :cursor, :board, :most_recent_move
 
   def initialize(board)
     @board = board
     @cursor = Cursor.new([4,4], board)
+    @most_recent_move = nil
   end
 
   def render(possible_destinations = [])
