@@ -121,7 +121,12 @@ class Board
     raise ChessError.new("Starting position is empty") if current_piece.is_a?(NullPiece)
     raise ChessError.new("Cannot move opponent's piece") if current_piece.color != current_player_color
     raise ChessError.new("Cannot move to that position") unless Board.in_bounds?(to_pos)
-    raise ChessError.new("Invalid move for that piece") unless current_piece.valid_moves.include?(to_pos)
+    if current_piece.valid_moves.include?(to_pos)
+    elsif current_piece.moves.include?(to_pos)
+      raise ChessError.new("Leaves you in check")
+    else
+      raise ChessError.new("Invalid move for that piece")
+    end
   end
 
   def update_pawn(to_pos)
