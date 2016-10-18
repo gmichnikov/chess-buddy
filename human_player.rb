@@ -9,7 +9,11 @@ class HumanPlayer
 
   def play_turn(display)
     from_pos = select_piece(display)
-    to_pos = select_destination(display, from_pos)
+    if illegal_piece_selection(display, from_pos)
+      to_pos = nil
+    else
+      to_pos = select_destination(display, from_pos)
+    end
     [from_pos, to_pos]
   end
 
@@ -22,6 +26,11 @@ class HumanPlayer
       notify_players(display)
     end
     display.cursor.cursor_pos
+  end
+
+  def illegal_piece_selection(display, from_pos)
+    display.board.empty?(from_pos) ||
+      (display.board.occupied?(from_pos) && display.board[from_pos].color != color)
   end
 
   def select_destination(display, from_pos)
