@@ -13,9 +13,4 @@ class SteppingPiece < Piece
     possible_moves
   end
 
-  private
-
-  def square_contains_own_piece?(pos)
-    self.board[pos].color == self.color
-  end
 end

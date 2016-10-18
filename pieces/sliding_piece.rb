@@ -36,19 +36,6 @@ class SlidingPiece < Piece
     allowed_moves
   end
 
-  def square_is_empty?(pos)
-    self.board[pos].is_a?(NullPiece)
-  end
-
-  def square_contains_own_piece?(pos)
-    self.board[pos].color == self.color
-  end
-
-  def square_contains_opponent_piece?(pos)
-    self.board[pos].color != self.color
-  end
-
-
   def slide(pos, dx, dy)
     [pos[0] + dx, pos[1] + dy]
   end
