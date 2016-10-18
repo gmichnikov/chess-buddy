@@ -54,12 +54,12 @@ class Board
 
   def [](pos)
     x, y = pos
-    @rows[x][y]
+    self.rows[x][y]
   end
 
   def []=(pos, value)
     x, y = pos
-    @rows[x][y] = value
+    self.rows[x][y] = value
   end
 
   def dup
@@ -80,7 +80,7 @@ class Board
 
   def checkmate?(color)
     return false unless in_check?(color)
-    player_pieces = @rows.flatten.select {|piece| piece.color == color}
+    player_pieces = self.rows.flatten.select {|piece| piece.color == color}
     player_pieces.each do |piece|
       return false if piece.valid_moves.length > 0
     end
@@ -89,9 +89,9 @@ class Board
 
   def in_check?(color)
     other_color = color == :white ? :black : :white
-    king = @rows.flatten.select { |piece| piece.is_a?(King) &&
+    king = self.rows.flatten.select { |piece| piece.is_a?(King) &&
       piece.color == color}.first
-    opponent_pieces = @rows.flatten.select { |piece| piece.color == other_color }
+    opponent_pieces = self.rows.flatten.select { |piece| piece.color == other_color }
     opponent_pieces.any? { |piece| piece.moves.include?(king.pos) }
   end
 
@@ -110,7 +110,7 @@ class Board
     self[[0,5]] = Bishop.new(:black, self, [0,5])
     self[[0,6]] = Knight.new(:black, self, [0,6])
     self[[0,7]] = Rook.new(:black, self, [0,7])
-    @rows.each_with_index do |row, r_index|
+    self.rows.each_with_index do |row, r_index|
       row.each_with_index do |square, c_index|
         if r_index == 0
           next

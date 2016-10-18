@@ -4,7 +4,7 @@ class SlidingPiece < Piece
   def moves
     x, y = pos
     possible_moves = []
-    if move_dirs[:horizontal]
+    if move_dirs[:horiz_and_vert]
       possible_moves += eval_moves(-1, 0)
       possible_moves += eval_moves(1, 0)
       possible_moves += eval_moves(0, -1)

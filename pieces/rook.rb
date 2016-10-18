@@ -3,7 +3,7 @@ require_relative 'sliding_piece'
 class Rook < SlidingPiece
 
   def move_dirs
-    { horizontal: true, diagonal: false}
+    { horiz_and_vert: true, diagonal: false}
   end
 
   def to_s
