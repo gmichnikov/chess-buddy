@@ -7,6 +7,8 @@ class ComputerPlayer
   end
 
   def play_turn(display)
+    display.render
+    sleep(0.1)
     possible_moves = find_all_computer_moves(display)
     capture_moves = find_computer_captures(possible_moves, display)
 

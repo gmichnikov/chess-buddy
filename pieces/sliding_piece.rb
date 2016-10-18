@@ -7,11 +7,11 @@ class SlidingPiece < Piece
 
   def moves
     possible_moves = []
-    if move_dirs[:horiz_and_vert]
+    if move_dirs[:horiz_and_vert_allowed]
       HORIZ_VERT_MOVES.each { | _, (dx, dy) | possible_moves += eval_moves(dx, dy) }
     end
 
-    if move_dirs[:diagonal]
+    if move_dirs[:diagonal_allowed]
       DIAGONAL_MOVES.each { | _, (dx, dy) | possible_moves += eval_moves(dx, dy) }
     end
     possible_moves
@@ -21,11 +21,11 @@ class SlidingPiece < Piece
 
   def eval_moves(dx, dy)
     allowed_moves = []
-    next_pos = slide(pos, dx, dy)
+    next_pos = slide_once(pos, dx, dy)
     while Board.in_bounds?(next_pos)
       if self.board.empty?(next_pos)
         allowed_moves << next_pos
-        next_pos = slide(next_pos, dx, dy)
+        next_pos = slide_once(next_pos, dx, dy)
       elsif square_contains_own_piece?(next_pos)
         break
       elsif square_contains_opponent_piece?(next_pos)
@@ -36,7 +36,7 @@ class SlidingPiece < Piece
     allowed_moves
   end
 
-  def slide(pos, dx, dy)
+  def slide_once(pos, dx, dy)
     [pos[0] + dx, pos[1] + dy]
   end
 

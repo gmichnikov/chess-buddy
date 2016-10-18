@@ -22,10 +22,10 @@ class Piece
   end
 
   def move_opponent_into_check?(to_pos)
-    other_color = (color == :white ? :black : :white)
+    opponent_color = (color == :white ? :black : :white)
     dup_board = board.dup
     dup_board.move!(pos, to_pos)
-    dup_board.in_check?(other_color)
+    dup_board.in_check?(opponent_color)
   end
 
 
