@@ -5,10 +5,17 @@ class SteppingPiece < Piece
     x, y = pos
     possible_moves = []
     deltas.each do |dx, dy|
-      new_x, new_y = x + dx, y + dy
-      next unless Board.in_bounds?([new_x, new_y])
-      possible_moves << [new_x, new_y] unless @board[[new_x, new_y]].color == @color
+      new_pos = [x + dx, y + dy]
+      if Board.in_bounds?(new_pos) && !square_contains_own_piece?(new_pos)
+        possible_moves << new_pos
+      end
     end
     possible_moves
+  end
+
+  private
+
+  def square_contains_own_piece?(pos)
+    self.board[pos].color == self.color
   end
 end
