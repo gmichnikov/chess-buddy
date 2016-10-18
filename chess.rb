@@ -20,13 +20,13 @@ class ChessGame
   end
 
   def play
-    until board.checkmate?(self.current_player.color)
+    until board.checkmate?(self.current_player.color) || board.stalemate?
       system("clear")
       from_pos, to_pos = current_player.play_turn(display)
       made_move = board.move(from_pos, to_pos, current_player.color)
       swap_turn if made_move
     end
-    handle_end_game
+    board.stalemate? ? handle_stalemate : handle_checkmate
   end
 
   private
@@ -35,12 +35,18 @@ class ChessGame
     self.current_player = (self.current_player == self.player1 ? self.player2 : self.player1)
   end
 
-  def handle_end_game
+  def handle_checkmate
     system("clear")
     self.display.render
     puts "#{self.current_player.name} is in checkmate!"
     swap_turn
     puts "#{self.current_player.name} wins!"
+  end
+
+  def handle_stalemate
+    system("clear")
+    self.display.render
+    puts "The game ends in a stalemate!"
   end
 
 end
@@ -51,5 +57,5 @@ p2 = HumanPlayer.new("Player 2")
 cp1 = ComputerPlayer.new("Computer Player 1")
 cp2 = ComputerPlayer.new("Computer Player 2")
 b = Board.new
-g = ChessGame.new(b, p1, p2)
+g = ChessGame.new(b, cp1, cp2)
 g.play

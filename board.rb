@@ -76,6 +76,13 @@ class Board
     true
   end
 
+  def stalemate?
+    remaining_pieces = self.rows.flatten.reject {|piece| piece.is_a?(NullPiece)}
+    return true if remaining_pieces.length == 2
+    false
+  end
+
+
   def in_check?(color)
     opponent_color = color == :white ? :black : :white
     king = self.rows.flatten.find { |piece| piece.is_a?(King) &&

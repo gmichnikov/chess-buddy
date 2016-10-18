@@ -6,6 +6,7 @@ class Pawn < Piece
 
   def initialize(color, board, pos)
     super(color, board, pos)
+    @value = 1
     @has_moved = false
   end
 
