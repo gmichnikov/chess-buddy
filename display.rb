@@ -15,7 +15,7 @@ class Display
 
   def initialize(board)
     @board = board
-    @cursor = Cursor.new([7,4], board)
+    @cursor = Cursor.new([4,4], board)
   end
 
   def render(possible_destinations = [])

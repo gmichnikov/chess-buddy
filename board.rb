@@ -127,6 +127,7 @@ class Board
   def check_for_move_errors(current_piece, current_player_color, to_pos)
     raise ChessError.new("Starting position is empty") if current_piece.is_a?(NullPiece)
     raise ChessError.new("Cannot move opponent's piece") if current_piece.color != current_player_color
+    raise ChessError.new("No valid moves for that piece") if to_pos.nil?
     raise ChessError.new("Cannot move to that position") unless Board.in_bounds?(to_pos)
     if current_piece.valid_moves.include?(to_pos)
     elsif current_piece.moves.include?(to_pos)

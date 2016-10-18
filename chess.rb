@@ -1,61 +1,31 @@
-require_relative 'board'
-require_relative 'display'
-require_relative 'human_player'
-require_relative 'computer_player'
-require 'byebug'
+require_relative 'game'
 
-class ChessError < StandardError
-end
-
-class ChessGame
-  attr_accessor :board, :player1, :player2, :current_player, :display
-
-  def initialize(board, player1, player2)
-    @board = Board.new
-    @player1, @player2 = player1, player2
-    @player1.color = :white
-    @player2.color = :black
-    @current_player = @player1
-    @display = Display.new(@board)
-  end
-
-  def play
-    until board.checkmate?(self.current_player.color) || board.stalemate?
-      system("clear")
-      from_pos, to_pos = current_player.play_turn(display)
-      made_move = board.move(from_pos, to_pos, current_player.color)
-      swap_turn if made_move
+def get_player(num)
+  player_type = nil
+  until(player_type && ["h", "c"].include?(player_type))
+    system("clear")
+    puts "Is Player #{num} (white) Human (H) or Computer (C)?"
+    player_type = gets.chomp[0].downcase
+    if player_type == "h"
+      print "Please enter Player #{num}'s name: "
+      player_name = gets.chomp
+      player = HumanPlayer.new(player_name)
+    elsif player_type == "c"
+      player = ComputerPlayer.new("Computer Player #{num}")
     end
-    board.stalemate? ? handle_stalemate : handle_checkmate
+    puts "pt #{player_type}"
   end
-
-  private
-
-  def swap_turn
-    self.current_player = (self.current_player == self.player1 ? self.player2 : self.player1)
-  end
-
-  def handle_checkmate
-    system("clear")
-    self.display.render
-    puts "#{self.current_player.name} is in checkmate!"
-    swap_turn
-    puts "#{self.current_player.name} wins!"
-  end
-
-  def handle_stalemate
-    system("clear")
-    self.display.render
-    puts "The game ends in a stalemate!"
-  end
-
+  player
 end
 
+def begin_game
+  p1 = get_player(1)
+  p2 = get_player(2)
+  b = Board.new
+  g = Game.new(b, p1, p2)
+  play_again = g.play
+  begin_game if play_again
+end
 
-p1 = HumanPlayer.new("Player 1")
-p2 = HumanPlayer.new("Player 2")
-cp1 = ComputerPlayer.new("Computer Player 1")
-cp2 = ComputerPlayer.new("Computer Player 2")
-b = Board.new
-g = ChessGame.new(b, p1, p2)
-g.play
+begin_game
+puts "Thank you for playing!"

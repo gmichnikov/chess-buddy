@@ -9,10 +9,11 @@ class HumanPlayer
 
   def play_turn(display)
     from_pos = select_piece(display)
-    if illegal_piece_selection(display, from_pos)
+    possible_destinations = display.board[from_pos].valid_moves
+    if illegal_piece_selection(display, from_pos) || possible_destinations.empty?
       to_pos = nil
     else
-      to_pos = select_destination(display, from_pos)
+      to_pos = select_destination(display, from_pos, possible_destinations)
     end
     [from_pos, to_pos]
   end
@@ -33,25 +34,28 @@ class HumanPlayer
       (display.board.occupied?(from_pos) && display.board[from_pos].color != color)
   end
 
-  def select_destination(display, from_pos)
-    possible_destinations = display.board[from_pos].valid_moves
+  def select_destination(display, from_pos, possible_destinations)
     system("clear")
-    puts "It is #{name}'s turn!"
+    print_whose_turn
     display.render(possible_destinations)
     while display.cursor.get_input
       system("clear")
-      puts "It is #{name}'s turn!"
+      print_whose_turn
       display.render(possible_destinations)
     end
     display.cursor.cursor_pos
   end
 
   def notify_players(display)
-    puts "It is #{name}'s turn!"
+    print_whose_turn
     if display.board.in_check?(color)
       puts "You are in check!"
     end
     display.render
+  end
+
+  def print_whose_turn
+    puts "It is #{name}'s turn!"
   end
 
 end
