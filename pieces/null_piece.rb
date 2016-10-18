@@ -4,9 +4,6 @@ require 'singleton'
 class NullPiece
   include Singleton
 
-  def moves
-  end
-
   def color
     nil
   end
@@ -14,11 +11,5 @@ class NullPiece
   def to_s
     " "
   end
-
-  def empty?
-  end
-
-
-
 
 end
