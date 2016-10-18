@@ -21,23 +21,12 @@ class Board
     made_move = false
     begin
       current_piece = self[from_pos]
-      if current_piece.class == NullPiece
-        raise ChessError.new("No piece at starting position")
-      end
-      if current_piece.color != current_player_color
-        raise ChessError.new("Not your piece")
-      end
-
-      raise ChessError.new("Cannot move to that position") unless Board.in_bounds?(to_pos)
-      unless current_piece.valid_moves.include?(to_pos)
-        raise ChessError.new("Invalid move")
-      end
+      check_for_move_errors(current_piece, current_player_color, to_pos)
       move!(from_pos, to_pos)
-      self[to_pos].has_moved = true if self[to_pos].is_a?(Pawn)
       made_move = true
     rescue ChessError => e
-      puts e.message
-      sleep(1)
+      puts "Error: #{e.message}"
+      sleep(0.75)
     end
     made_move
   end
@@ -47,8 +36,7 @@ class Board
     current_piece.pos = to_pos
     self[from_pos] = NullPiece.instance
     self[to_pos] = current_piece
-
-    promote_pawns(current_piece, to_pos)
+    update_pawn(to_pos) if current_piece.is_a?(Pawn)
   end
 
   def [](pos)
@@ -140,7 +128,20 @@ class Board
 
   end
 
-  def promote_pawns(current_piece, to_pos)
+  def check_for_move_errors(current_piece, current_player_color, to_pos)
+    raise ChessError.new("Starting position is empty") if current_piece.is_a?(NullPiece)
+    raise ChessError.new("Cannot move oppponent's piece") if current_piece.color != current_player_color
+    raise ChessError.new("Cannot move to that position") unless Board.in_bounds?(to_pos)
+    raise ChessError.new("Invalid move for that piece") unless current_piece.valid_moves.include?(to_pos)
+  end
+
+  def update_pawn(to_pos)
+    self[to_pos].has_moved = true
+    check_pawn_promotion(to_pos)
+  end
+
+  def check_pawn_promotion(to_pos)
+    current_piece = self[to_pos]
     if current_piece.is_a?(Pawn) && current_piece.color == :white &&
         to_pos[0] == 0
       self[[0,to_pos[1]]] = Queen.new(:white, self, [0,to_pos[1]])
