@@ -41,10 +41,6 @@ class Piece
     self.board[pos].color == self.color
   end
 
-  def square_is_empty?(pos)
-    self.board[pos].is_a?(NullPiece)
-  end
-
   def square_contains_opponent_piece?(pos)
     self.board[pos].color != self.color
   end

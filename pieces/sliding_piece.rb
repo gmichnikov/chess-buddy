@@ -23,7 +23,7 @@ class SlidingPiece < Piece
     allowed_moves = []
     next_pos = slide(pos, dx, dy)
     while Board.in_bounds?(next_pos)
-      if square_is_empty?(next_pos)
+      if self.board.empty?(next_pos)
         allowed_moves << next_pos
         next_pos = slide(next_pos, dx, dy)
       elsif square_contains_own_piece?(next_pos)

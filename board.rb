@@ -94,8 +94,9 @@ class Board
     opponent_pieces.any? { |piece| piece.moves.include?(king.pos) }
   end
 
-
-
+  def empty?(pos)
+    self[pos].is_a?(NullPiece)
+  end
 
   private
 
@@ -133,8 +134,6 @@ class Board
     self[[7,7]] = Rook.new(:white, self, [7,7])
 
   end
-
-  # private
 
   def promote_pawns(current_piece, to_pos)
     if current_piece.is_a?(Pawn) && current_piece.color == :white &&
