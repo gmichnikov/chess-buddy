@@ -15,11 +15,13 @@ class Display
 
   def initialize(board)
     @board = board
-    @cursor = Cursor.new([0,0], board)
+    @cursor = Cursor.new([7,4], board)
   end
 
   def render(possible_destinations = [])
+    puts "\n  a b c d e f g h"
     self.board.rows.each_with_index do |row, r_index|
+      print "#{8 - r_index} "
       row.each_with_index do |piece, c_index|
         pos = [r_index, c_index]
         background_color = determine_background_color(pos)

@@ -27,9 +27,11 @@ class HumanPlayer
   def select_destination(display, from_pos)
     possible_destinations = display.board[from_pos].valid_moves
     system("clear")
+    puts "It is #{name}'s turn!"
     display.render(possible_destinations)
     while display.cursor.get_input
       system("clear")
+      puts "It is #{name}'s turn!"
       display.render(possible_destinations)
     end
     display.cursor.cursor_pos
