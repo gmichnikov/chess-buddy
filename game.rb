@@ -23,8 +23,6 @@ class Game
     until board.checkmate?(self.current_player.color) || board.stalemate?
       system("clear")
       from_pos, to_pos = current_player.play_turn(display)
-
-      # board[from_pos].puts_self_at_risk?(to_pos) ? "At risk" : "Not at risk"
       
       made_move = board.move(from_pos, to_pos, current_player.color)
       if made_move
