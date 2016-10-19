@@ -17,6 +17,8 @@ class SlidingPiece < Piece
     possible_moves
   end
 
+  alias_method :moves_that_could_capture, :moves
+
   private
 
   def eval_moves(dx, dy)

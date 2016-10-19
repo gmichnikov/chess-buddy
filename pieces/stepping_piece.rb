@@ -13,4 +13,6 @@ class SteppingPiece < Piece
     possible_moves
   end
 
+  alias_method :moves_that_could_capture, :moves
+
 end

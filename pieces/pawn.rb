@@ -22,12 +22,6 @@ class Pawn < Piece
     possible_moves
   end
 
-  private
-
-  def pawn_direction
-    self.color == :white ? -1 : 1
-  end
-
   def capture_moves
     possible_capture_moves = []
     capture_deltas = self.color == :white ? [[-1,-1], [-1,1]] : [[1,-1], [1,1]]
@@ -39,6 +33,15 @@ class Pawn < Piece
     end
     possible_capture_moves
   end
+
+  alias_method :moves_that_could_capture, :capture_moves
+
+  private
+
+  def pawn_direction
+    self.color == :white ? -1 : 1
+  end
+
 
   def pawn_can_move_two?
     has_moved == false && both_squares_ahead_empty?

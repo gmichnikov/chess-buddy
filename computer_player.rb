@@ -39,10 +39,10 @@ class ComputerPlayer
   end
 
   def find_computer_captures(possible_moves, display)
-    other_color = color == :white ? :black : :white
-    possible_captures = display.board.rows.flatten.select { |piece| piece.color == other_color }
-    poss_capture_pos = possible_captures.map { |piece| piece.pos }
-    capture_moves = possible_moves.select { |from_pos, to_pos| poss_capture_pos.include?(to_pos) }
+    opponent_color = color == :white ? :black : :white
+    opponent_pieces = display.board.rows.flatten.select { |piece| piece.color == opponent_color }
+    opponent_piece_positions = opponent_pieces.map { |piece| piece.pos }
+    capture_moves = possible_moves.select { |from_pos, to_pos| opponent_piece_positions.include?(to_pos) }
     capture_moves
   end
 

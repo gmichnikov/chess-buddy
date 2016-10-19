@@ -1,4 +1,5 @@
 require_relative 'board'
+require_relative 'my_array'
 require 'byebug'
 
 class Piece
@@ -14,12 +15,17 @@ class Piece
   end
 
   def inspect
-    "#{color} piece in spot #{pos}"
+    "#{color} piece in spot #{board.translate_pos_to_chess(pos)}"
   end
 
   def valid_moves
     moves.reject { |move| puts_self_in_check?(move) }
   end
+
+  def valid_moves_that_could_capture
+    moves_that_could_capture.reject { |move| puts_self_in_check?(move) }
+  end
+
 
   def puts_opponent_in_check?(to_pos)
     opponent_color = (color == :white ? :black : :white)
@@ -28,6 +34,20 @@ class Piece
     dup_board.in_check?(opponent_color)
   end
 
+  def puts_self_at_risk?(to_pos)
+    opponent_color = (color == :white ? :black : :white)
+    dup_board = board.dup
+    dup_board.move!(pos, to_pos)
+
+    opponent_pieces = dup_board.rows.flatten.select { |piece| piece.color == opponent_color }
+    opponent_pieces.each do |opponent_piece|
+      opponent_piece.valid_moves_that_could_capture.each do |move|
+        return true if move == to_pos
+      end
+    end
+
+    false
+  end
 
   private
 

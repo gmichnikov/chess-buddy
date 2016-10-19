@@ -25,7 +25,7 @@ class Board
       current_piece = self[from_pos]
       check_for_move_errors(current_piece, current_player_color, to_pos)
       move!(from_pos, to_pos)
-      made_move = translate_pos_to_chess(from_pos, to_pos)
+      made_move = translate_move_to_chess(from_pos, to_pos)
     rescue ChessError => e
       puts "#{e.message}.\nPlease try again."
       sleep(1)
@@ -99,6 +99,11 @@ class Board
     !empty?(pos)
   end
 
+  def translate_pos_to_chess(pos)
+    number = 8 - pos[0]
+    letter = ("a".ord + pos[1]).chr
+    "#{letter}#{number}"
+  end
 
   private
 
@@ -153,12 +158,10 @@ class Board
     end
   end
 
-  def translate_pos_to_chess(from_pos, to_pos)
-    from_number = 8 - from_pos[0]
-    from_letter = ("a".ord + from_pos[1]).chr
-    to_number = 8 - to_pos[0]
-    to_letter = ("a".ord + to_pos[1]).chr
-    return "#{from_letter}#{from_number} to #{to_letter}#{to_number}"
+  def translate_move_to_chess(from_pos, to_pos)
+    from_chess = translate_pos_to_chess(from_pos)
+    to_chess = translate_pos_to_chess(to_pos)
+    "#{from_chess} to #{to_chess}"
   end
 
 end

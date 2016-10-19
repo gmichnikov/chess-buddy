@@ -5,7 +5,8 @@ def get_player(num)
   until(player_type && ["h", "c"].include?(player_type))
     system("clear")
     puts "Is Player #{num} (white) Human (H) or Computer (C)?"
-    player_type = gets.chomp[0].downcase
+    input = gets.chomp[0]
+    player_type = input ? input.downcase : nil
     if player_type == "h"
       print "Please enter Player #{num}'s name: "
       player_name = gets.chomp
