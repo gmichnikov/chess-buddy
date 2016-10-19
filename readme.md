@@ -39,6 +39,42 @@ To use Chess Buddy:
 
 ### Chess Buddy AI
 
+Chess Buddy features a custom [Computer Player AI](https://github.com/gmichnikov/chess-buddy/blob/master/computer_player.rb). Chess Buddy categorizes all valid moves on several dimensions:
+
+1. **In Check:** Does the move put the opponent in check?
+2. **Safe vs. At Risk:** Does the move put given piece in a position where the opponent could immediately capture it on the next turn?
+3. **Capture:** Does the move capture a piece?
+4. **Valuable Capture:** Does the move capture a piece with value greater than or equal to the value of the capturing piece?
+
+One interesting challenge was determining whether or not a move left a piece at risk. Here is code from the `Piece` class. In order to determine whether a piece is at risk, the entire board (and all of its pieces) must first be duplicated. Only then can the speculative moves be made. Once a move is made on the `dup_board`, the code checks if any of the `opponent_pieces` are able to move to the piece's new position (`to_pos`).
+
+```ruby
+def puts_self_at_risk?(to_pos)
+  opponent_color = (color == :white ? :black : :white)
+  dup_board = board.dup
+  dup_board.move!(pos, to_pos)
+
+  opponent_pieces = dup_board.rows.flatten.select { |piece| piece.color == opponent_color }
+  opponent_pieces.each do |opponent_piece|
+    opponent_piece.valid_moves_that_could_capture.each do |move|
+      return true if move == to_pos
+    end
+  end
+
+  false
+end
+```
+
+Chess Buddy's AI then chooses a move for the Computer Player in the following order of preference:
+1. Safe and Valuable Capture
+2. Safe and In Check
+3. Valuable Capture
+4. Safe and Capture
+5. Safe
+6. In Check
+7. Capture
+8. None of the above
+
 
 ### Chess Piece Class Inheritance
 
