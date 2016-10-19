@@ -33,20 +33,49 @@ To use Chess Buddy:
 ![screenshot](https://github.com/gmichnikov/chess-buddy/blob/master/valid-moves.png)
 8. Navigate to the square where you'd like to move your piece, and press enter again.
 9. If you attempt to make an invalid move, Chess Buddy will show you an error message and ask you to try again.
+10. Chess Buddy currently supports Pawn Promotion, but not Castling.
 
 ## Features
 
 ### Chess Buddy AI
- code snippets
 
- Technical implementation details for anything worth mentioning
- Anything you had to stop and think about before building
 
-### Class Inheritance
-code snippets
+### Chess Piece Class Inheritance
 
-Technical implementation details for anything worth mentioning
-Anything you had to stop and think about before building
+Each player has six types of pieces on the board: Rook (2), Knight (2), Bishop (2), Queen (1), King (1), and Pawn (8). While each piece has unique constraints on its movement, these constraints have a lot in common. Rooks can slide horizontally or vertically until they meet another piece, while Bishops can slide diagonally. Queens can slide in all 8 of these directions. Chess Buddy captures (!) these similar movement patterns in a [SlidingPiece class](https://github.com/gmichnikov/chess-buddy/blob/master/pieces/sliding_piece.rb), from which all three pieces inherit.
+
+```ruby
+# pieces/sliding_piece.rb
+
+HORIZ_VERT_MOVES = { up: [-1, 0], down: [1, 0], left: [0, -1], right: [0, 1] }
+DIAGONAL_MOVES = { up_left: [-1, -1], down_left: [1, -1], up_right: [-1, 1], down_right: [1, 1] }
+
+def moves
+  possible_moves = []
+
+  if move_dirs[:horiz_and_vert_allowed]
+    HORIZ_VERT_MOVES.each { | _, (dx, dy) | possible_moves += eval_moves(dx, dy) }
+  end
+
+  if move_dirs[:diagonal_allowed]
+    DIAGONAL_MOVES.each { | _, (dx, dy) | possible_moves += eval_moves(dx, dy) }
+  end
+
+  possible_moves
+end
+```
+
+`Rook`s, `Bishop`s, and `Queen`s share the `moves` method above, which returns an array of all `possible_moves` a given piece can make. It does this by iterating through all of the directions in which each piece is allowed to move and moving the piece as far as possible in each directions.
+
+The differences in movement rules can be found in the hash returned by each piece's `move_dirs` method. Here is the `move_dirs` method for the [Rook](https://github.com/gmichnikov/chess-buddy/blob/master/pieces/rook.rb).
+
+```ruby
+# pieces/rook.rb
+
+def move_dirs
+  { horiz_and_vert_allowed: true, diagonal_allowed: false }
+end
+```
 
 
 ### Ideas for Future Development
