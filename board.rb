@@ -105,6 +105,12 @@ class Board
     "#{letter}#{number}"
   end
 
+  def translate_move_to_chess(from_pos, to_pos)
+    from_chess = translate_pos_to_chess(from_pos)
+    to_chess = translate_pos_to_chess(to_pos)
+    "#{from_chess} to #{to_chess}"
+  end
+
   private
 
   def make_starting_grid
@@ -158,10 +164,5 @@ class Board
     end
   end
 
-  def translate_move_to_chess(from_pos, to_pos)
-    from_chess = translate_pos_to_chess(from_pos)
-    to_chess = translate_pos_to_chess(to_pos)
-    "#{from_chess} to #{to_chess}"
-  end
 
 end

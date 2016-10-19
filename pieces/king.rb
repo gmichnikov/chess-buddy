@@ -3,6 +3,7 @@ require_relative 'stepping_piece'
 class King < SteppingPiece
   def initialize(color, board, pos)
     super(color, board, pos)
+    @value = 100
   end
 
   def deltas
