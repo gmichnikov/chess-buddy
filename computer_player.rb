@@ -75,8 +75,6 @@ class ComputerPlayer
 
   def find_valuable_capture_moves(capture_moves, display)
     capture_moves.select do |from_pos, to_pos|
-      p display.board[from_pos], display.board[to_pos]
-      # gets
       display.board[from_pos].value <= display.board[to_pos].value
     end
   end
