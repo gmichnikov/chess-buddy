@@ -26,9 +26,11 @@ To use Chess Buddy:
   - If you choose human, you will be prompted to enter your name.
 3. Repeat the same for Player 2.
 4. The game always begins with "white", represented in this game by red pieces.
+![screenshot](https://github.com/gmichnikov/chess-buddy/blob/master/first-move.png)
 5. The yellow cursor begins on square e4. You can move it around the board using the arrow keys.
 6. When you are ready to select a piece to move, click either space bar or enter.
 7. Once you select a piece, Chess Buddy will show you all valid moves for that piece by highlighting them in blue.
+![screenshot](https://github.com/gmichnikov/chess-buddy/blob/master/valid-moves.png)
 8. Navigate to the square where you'd like to move your piece, and press enter again.
 9. If you attempt to make an invalid move, Chess Buddy will show you an error message and ask you to try again.
 
@@ -45,8 +47,6 @@ code snippets
 
 Technical implementation details for anything worth mentioning
 Anything you had to stop and think about before building
-
-![wireframes](https://github.com/gmichnikov/gm-84-plus/blob/master/wireframes/wireframes.001.jpeg)
 
 
 ### Ideas for Future Development
