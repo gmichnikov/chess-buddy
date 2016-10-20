@@ -1,4 +1,4 @@
-require_relative '../board'
+require_relative '../game_play/board'
 require 'singleton'
 
 class NullPiece

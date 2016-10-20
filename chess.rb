@@ -1,4 +1,4 @@
-require_relative 'game'
+require_relative './game_play/game'
 
 def get_player(num)
   player_type = nil

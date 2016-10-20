@@ -1,8 +1,7 @@
 require_relative 'board'
-require_relative 'display'
+require_relative '../display/display'
 require_relative 'human_player'
 require_relative 'computer_player'
-require 'byebug'
 
 class ChessError < StandardError
 end
@@ -23,7 +22,7 @@ class Game
     until board.checkmate?(self.current_player.color) || board.stalemate?
       system("clear")
       from_pos, to_pos = current_player.play_turn(display)
-      
+
       made_move = board.move(from_pos, to_pos, current_player.color)
       if made_move
         self.display.most_recent_move = made_move

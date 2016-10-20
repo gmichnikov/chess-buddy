@@ -1,6 +1,5 @@
-require_relative 'board'
-require_relative 'my_array'
-require 'byebug'
+require_relative '../game_play/board'
+require_relative '../display/my_array'
 
 class Piece
 

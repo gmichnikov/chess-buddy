@@ -1,5 +1,5 @@
 require 'colorize'
-require_relative 'board'
+require_relative '../game_play/board'
 require_relative 'cursor'
 
 class Display

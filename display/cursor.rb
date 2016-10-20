@@ -1,5 +1,5 @@
 require "io/console"
-require_relative "board"
+require_relative "../game_play/board"
 
 KEYMAP = {
   " " => :space,

@@ -1,7 +1,6 @@
-require_relative 'display'
-require_relative 'piece'
-require 'byebug'
-Dir["./pieces/*"].each { |file| require_relative file }
+require_relative '../display/display'
+Dir["*pieces/*"].each { |file| require_relative "../#{file}" }
+# require_relative '../pieces/rook'
 
 class Board
 
