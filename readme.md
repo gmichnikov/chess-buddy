@@ -26,11 +26,11 @@ To use Chess Buddy:
   - If you choose human, you will be prompted to enter your name.
 3. Repeat the same for Player 2.
 4. The game always begins with "white", represented in this game by red pieces.
-![screenshot](https://github.com/gmichnikov/chess-buddy/blob/master/first-move.png)
+![screenshot](https://github.com/gmichnikov/chess-buddy/blob/master/images/first-move.png)
 5. The yellow cursor begins on square e4. You can move it around the board using the arrow keys.
 6. When you are ready to select a piece to move, click either space bar or enter.
 7. Once you select a piece, Chess Buddy will show you all valid moves for that piece by highlighting them in blue.
-![screenshot](https://github.com/gmichnikov/chess-buddy/blob/master/valid-moves.png)
+![screenshot](https://github.com/gmichnikov/chess-buddy/blob/master/images/valid-moves.png)
 8. Navigate to the square where you'd like to move your piece, and press enter again.
 9. If you attempt to make an invalid move, Chess Buddy will show you an error message and ask you to try again.
 10. Chess Buddy currently supports Pawn Promotion, but not Castling.
@@ -39,7 +39,7 @@ To use Chess Buddy:
 
 ### Chess Buddy AI
 
-Chess Buddy features a custom [Computer Player AI](https://github.com/gmichnikov/chess-buddy/blob/master/computer_player.rb). Chess Buddy categorizes all valid moves on several dimensions:
+Chess Buddy features a custom [Computer Player AI](https://github.com/gmichnikov/chess-buddy/blob/master/game_play/computer_player.rb). Chess Buddy categorizes all valid moves on several dimensions:
 
 1. **In Check:** Does the move put the opponent in check?
 2. **Safe vs. At Risk:** Does the move put given piece in a position where the opponent could immediately capture it on the next turn?
