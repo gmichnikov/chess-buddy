@@ -113,6 +113,9 @@ def move_dirs
 end
 ```
 
+### Sample game
+This example shows the fastest possible game of Chess (two moves by each side).
+![screenshot](http://gregmichnikov.com/images/chess-buddy.gif)
 
 ### Ideas for Future Development
 
